@@ -1,0 +1,6 @@
+KayKit Adventurers Character Pack 1.0 and KayKit Dungeon Remastered 1.0
+Created by Kay Lousberg (www.kaylousberg.com). License: CC0 1.0
+http://creativecommons.org/publicdomain/zero/1.0/
+
+knight.glb is Knight.glb with every animation except Idle, Walking_A, Running_A and
+1H_Melee_Attack_Chop removed. The other files are unchanged copies of the pack's .gltf.glb files.
