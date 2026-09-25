@@ -21,6 +21,7 @@ A proof of concept you can play in a mobile browser at a public URL (GitHub Page
 ## Decisions so far
 
 <!-- one line per resolved ticket: [title](issues/NN-slug.md): gist -->
+- [Which CC0 or licensed asset packs could the PoC use?](issues/02-asset-candidates.md): KayKit (CC0, 3D) leads both approaches (as models, or rendered by us into 8-direction sprites); paid pixel-art packs can't be committed to the public repo.
 
 ## Not yet specified
 
