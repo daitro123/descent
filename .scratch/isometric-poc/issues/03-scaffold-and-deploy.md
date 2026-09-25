@@ -12,3 +12,5 @@ Every prototype has to be felt on the phone, so first there has to be a URL to o
 HITL part: the user enables GitHub Pages for the repo (source: GitHub Actions) and confirms the URL opens on the Redmi in landscape.
 
 Resolution records the URL, how deploys are triggered, and the baseline FPS of an empty scene on the Redmi.
+
+Inputs from the Three.js pixel-rendering research: size the canvas in device pixels rather than using `setPixelRatio`, drive updates with delta time (the Redmi has a 120 Hz screen), and use the `lil-gui` bundled with three for the Tuning panel. The user should also check whether their Redmi is the 4G (Mali-G57) or 5G (Adreno 619) model, under Settings → About phone.
