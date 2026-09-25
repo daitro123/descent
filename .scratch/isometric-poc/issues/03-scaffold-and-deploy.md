@@ -1,9 +1,8 @@
-# 
+# Scaffold the TypeScript + Three.js project and deploy it to GitHub Pages
 
 Type: task
 Mode: AFK + HITL checklist
-Status: open
-Blocked by: Scaffold the TypeScript + Three.js project and deploy it to GitHub Pages
+Status: claimed
 
 ## Question
 
