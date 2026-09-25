@@ -2,7 +2,7 @@
 
 Type: research
 Mode: AFK
-Status: open
+Status: claimed
 Blocked by:
 
 ## Question
