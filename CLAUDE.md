@@ -2,11 +2,11 @@
 
 ### Issue tracker
 
-Issues and specs are tracked in GitHub Issues for `daitro123/descent`, via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+Issues and specs are tracked as local markdown files under `.scratch/<feature-slug>/`. See `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 
-Default vocabulary: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+Default vocabulary, recorded as `Status:` lines in issue files: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
 
 ### Domain docs
 
