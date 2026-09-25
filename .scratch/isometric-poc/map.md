@@ -11,7 +11,7 @@ A proof of concept you can play in a mobile browser at a public URL (GitHub Page
 - **Execution is in scope for this map.** Feel can only be judged by playing, so prototype and task tickets may produce real, kept code. The map closes when the user signs off the feel on-device, not when a spec exists. Throwaway prototypes are still captured per the `prototype` skill.
 - **Stack:** TypeScript + Three.js (user's choice), built with Vite. Run and phone-access notes are in `README.md`.
 - **Repo and hosting:** the repo is public (for now) and deploys to GitHub Pages through GitHub Actions on every push to `main`, the default branch. Branch work reaches the phone by merging into `main`, or over Wi-Fi with `npm run dev`.
-- **Target:** a mobile browser in landscape, not tied to any one browser. Test device: Xiaomi Redmi Note 11 Pro (Android); target a steady 60 fps on it. Desktop mouse/keyboard should work, but only as a dev convenience.
+- **Target:** a mobile browser in landscape, not tied to any one browser. Test device: Xiaomi Redmi Note 11 Pro (Android), believed to be the 4G model (Mali-G57 MC2 GPU), usually in Brave; target a steady 60 fps on it. Desktop mouse/keyboard should work, but only as a dev convenience.
 - **Tempo:** slower and more deliberate than Diablo: few enemies at a time, telegraphed attacks, every swing matters. Story and pacing design belong to a separate, later wayfinder run.
 - **Tuning:** feel values are tuned live on the phone through an in-game **Tuning panel** behind `?tune`.
 - **8 directions** for movement and facing.
@@ -24,7 +24,7 @@ A proof of concept you can play in a mobile browser at a public URL (GitHub Page
 <!-- one line per resolved ticket: [title](issues/NN-slug.md): gist -->
 - [How do you render isometric pixel art with Three.js on a mid-range Android phone?](issues/01-threejs-pixel-rendering.md): both approaches = low-res render, whole-number nearest-neighbour upscale, pixel-snapped camera; 2D is hard on depth ordering, 3D costs a second render and float targets; 120 Hz screen means delta-time updates.
 - [Which CC0 or licensed asset packs could the PoC use?](issues/02-asset-candidates.md): KayKit (CC0, 3D) leads both approaches (as models, or rendered by us into 8-direction sprites); paid pixel-art packs can't be committed to the public repo.
-- [Scaffold the TypeScript + Three.js project and deploy it to GitHub Pages](issues/03-scaffold-and-deploy.md): live at https://daitro123.github.io/descent/, deployed on every push to `main`; the empty scene holds 60 fps at the full 2400×1080 on the Redmi (Brave, rAF at 60 Hz; GPU name hidden by Brave).
+- [Scaffold the TypeScript + Three.js project and deploy it to GitHub Pages](issues/03-scaffold-and-deploy.md): live at https://daitro123.github.io/descent/, deployed on every push to `main`; the empty scene holds 60 fps at the full 2400×1080 on the Redmi (Brave, rAF at 60 Hz; GPU name hidden by Brave, phone believed to be the 4G / Mali-G57 model).
 - [Where can the PoC be hosted from the private repo, for free?](issues/11-hosting.md): GitHub Pages, with the repo made public for now; deploys from `main`. Cloudflare Pages is the fallback if the repo goes private again.
 
 ## Not yet specified

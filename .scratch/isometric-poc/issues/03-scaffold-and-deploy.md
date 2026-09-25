@@ -63,5 +63,5 @@ The scaffold is live and confirmed on the Redmi.
 - **Deploys:** the "Build and deploy" workflow (`.github/workflows/build-and-deploy.yml`). Every push to `main` builds and deploys, and it can be run by hand on `main` from the Actions tab. Every other push and PR only builds. The Pages source must be **GitHub Actions**. Under "Deploy from a branch", GitHub publishes the unbuilt source and the page comes up blank.
 - **Baseline on the Redmi** (Brave, landscape, fullscreen, placeholder scene with 2 draw calls and 12 triangles): **60 fps, 16.7 ms average, 16.8 ms worst**. Drawing buffer 2400×1080 device pixels at dpr 2.75, so the canvas fills the whole native screen.
 - **rAF runs at 60 Hz, not 120,** in Brave on this phone. The delta-time loop handles either.
-- **GPU unknown:** Brave hides the WebGL renderer name (it reports "Brave"), so the 4G (Mali-G57) vs 5G (Adreno 619) question is still open. Settings → About phone answers it.
+- **GPU:** Brave hides the WebGL renderer name (it reports "Brave"). The user is fairly sure the phone is the **4G model (Helio G96, Mali-G57 MC2)** but hasn't checked Settings → About phone. Treat it as the Mali-G57, the more cautious of the two for performance.
 - **Tuning panel:** opens with `?tune` and is easy to use by thumb. It's empty until prototypes add Feel values.
