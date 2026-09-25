@@ -1,4 +1,4 @@
-// PROTOTYPE (throwaway): 2D sprites vs pixelated 3D. See .scratch/isometric-poc/issues/04-rendering-approach.md
+// Camera and art-pixel grid for pixelated 3D. Why 3D: .scratch/isometric-poc/issues/04-rendering-approach.md
 import * as THREE from 'three';
 
 /** Art density: virtual (art) pixels per world unit, measured on screen. The Warrior is ~48 px tall. */
@@ -25,7 +25,7 @@ export const UP = new THREE.Vector3().crossVectors(BACK, RIGHT).normalize();
 export const GROUND_RIGHT = RIGHT.clone();
 export const GROUND_UP = new THREE.Vector3(-Math.sin(YAW), 0, -Math.cos(YAW));
 
-/** Soft sky fill plus a key light from the camera's upper left. Used by the scene and the sprite bake. */
+/** Soft sky fill plus a key light from the camera's upper left. */
 export function createLights(): THREE.Light[] {
   const key = new THREE.DirectionalLight(0xfff1dc, 2.2);
   key.position.set(-4, 10, 8);

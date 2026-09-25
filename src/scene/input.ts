@@ -1,8 +1,7 @@
-// PROTOTYPE (throwaway): 2D sprites vs pixelated 3D. See .scratch/isometric-poc/issues/04-rendering-approach.md
-// Stand-in controls only: the real scheme is its own ticket (touch controls).
+// Stand-in controls until "Which touch control scheme fits deliberate isometric combat?" is decided.
 import * as THREE from 'three';
 import type { Warrior } from './warrior';
-import { facingOf, GROUND_RIGHT, GROUND_UP } from './view';
+import { facingOf, GROUND_RIGHT, GROUND_UP } from '../render/view';
 
 const DEAD_ZONE_PX = 12;
 const STICK_RADIUS_PX = 50;
@@ -25,9 +24,9 @@ function facingFromScreen(dx: number, dyUp: number): number {
  */
 export function createInput(canvas: HTMLCanvasElement, attackButton: HTMLElement, onManual: () => void) {
   const base = document.createElement('div');
-  base.className = 'proto-stick';
+  base.className = 'stick';
   const knob = document.createElement('div');
-  knob.className = 'proto-stick-knob';
+  knob.className = 'stick-knob';
   base.append(knob);
   document.body.append(base);
 
@@ -105,8 +104,8 @@ type Waypoint = { x: number; z: number; attack?: boolean };
 
 /**
  * A fixed loop through the Area, on 8-direction lines only: past the pillar, up to the barrels,
- * behind the low wall and back in front of it, swinging at three stops. Lets the variants be
- * compared (and their frame rate measured) hands-free, on the same path.
+ * behind the low wall and back in front of it, swinging at three stops. Lets the scene be
+ * watched, and its frame rate measured, hands-free on the same path every time.
  */
 const ROUTE: Waypoint[] = [
   { x: 3.6, z: 6 },

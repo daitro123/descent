@@ -2,7 +2,7 @@
 
 Type: prototype
 Mode: HITL
-Status: claimed
+Status: resolved
 Blocked by: 01, 03
 
 ## Question
@@ -33,3 +33,18 @@ All three share everything else: the Area (KayKit Dungeon floor, back walls, a h
 - The Area is 3D geometry in all variants. In a full 2D approach the tiles would be pre-rendered too, and at one texel per art pixel from the same camera they would look the same, so only the Warrior's rendering differs.
 
 **Code:** `src/prototype-rendering/`; assets in `public/prototype-rendering/kaykit/` (CC0, `knight.glb` stripped to the 4 clips used, 500 KB).
+
+## Answer
+
+**Pixelated 3D: live, skinned models with smooth animation (variant B).** Played on the Redmi on 2026-09-25. B felt best: responsive, with the animation feeling right. The frame rate looked steady in all three variants (no numbers recorded), so performance didn't decide it.
+
+- **Rejected:** A, the 2D sprite sheet (12 fps frames, instant turns), and C, the 3D model stepped at 12 fps with hard cuts. Both lost on feel, not looks.
+- **What this fixes for later tickets:**
+  - **Assets:** rigged, animated 3D models plus a 3D Area kit. No sprite sheets or pre-rendered tiles, and no offline bake step.
+  - **Camera:** the approach no longer forbids rotating or zooming the camera; whether to do either stays with the camera ticket.
+  - **Rendering stays hand-built:** 600×270 art pixels ×4 on the Redmi, 8-bit sRGB targets, an outline from depth only, one nearest-neighbour upscale. `RenderPixelatedPass` isn't used.
+- **Tone:** after playing, the user said the game should look **gritty, not cute**. KayKit's chunky characters are the wrong tone. That doesn't change this answer, but it reopens the asset pick; see [Which gritty, rigged 3D characters and dungeon kit could replace KayKit?](12-gritty-3d-assets.md).
+
+**Where things are:**
+- **Kept in `main`:** B's scene is folded in. The pipeline and camera are in `src/render/`, and the scene, with its stand-in Area, controls and autopilot, is in `src/scene/`.
+- **Throwaway:** the full three-variant prototype, including the in-browser sprite baker, is on the `prototype/04-rendering-approach` branch (commit `67c0376`).

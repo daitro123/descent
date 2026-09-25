@@ -1,7 +1,7 @@
-// PROTOTYPE (throwaway): 2D sprites vs pixelated 3D. See .scratch/isometric-poc/issues/04-rendering-approach.md
+// Stand-in moveset until "What can the Warrior do?" is decided.
 import * as THREE from 'three';
 import type { Area } from './area';
-import { facingVector } from './view';
+import { facingVector } from '../render/view';
 
 export type Gait = 'walk' | 'run';
 export type WarriorState = 'idle' | 'move' | 'attack';
@@ -25,8 +25,8 @@ export const movement = {
 const RADIUS = 0.45;
 
 /**
- * The Warrior's simulation, shared by every variant: 8-direction movement, and an attack that
- * roots the Warrior in place until the swing ends. The variants only differ in how they draw it.
+ * The Warrior's simulation: 8-direction movement, and an attack that roots the Warrior in place
+ * until the swing ends. `WarriorView` draws it.
  */
 export class Warrior {
   readonly position = new THREE.Vector3(3.6, 0, 6);

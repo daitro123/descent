@@ -16,6 +16,7 @@ A proof of concept you can play in a mobile browser at a public URL (GitHub Page
 - **Tuning:** feel values are tuned live on the phone through an in-game **Tuning panel** behind `?tune`.
 - **8 directions** for movement and facing.
 - **Art:** existing CC0 or licensed assets, good enough to judge readability and animation timing. Not final art.
+- **Tone:** gritty and grounded, not cute or chunky. KayKit is only a stand-in until the asset pick.
 - **Tracker:** local markdown, per `docs/agents/issue-tracker.md`. Research findings are committed under `.scratch/isometric-poc/research/` on the working branch.
 - **Skills:** grilling tickets call `grilling` + `domain-modeling`; prototype tickets call `prototype`; research tickets call `research`. Use the vocabulary in `CONTEXT.md`.
 
@@ -25,6 +26,7 @@ A proof of concept you can play in a mobile browser at a public URL (GitHub Page
 - [How do you render isometric pixel art with Three.js on a mid-range Android phone?](issues/01-threejs-pixel-rendering.md): both approaches = low-res render, whole-number nearest-neighbour upscale, pixel-snapped camera; 2D is hard on depth ordering, 3D costs a second render and float targets; 120 Hz screen means delta-time updates.
 - [Which CC0 or licensed asset packs could the PoC use?](issues/02-asset-candidates.md): KayKit (CC0, 3D) leads both approaches (as models, or rendered by us into 8-direction sprites); paid pixel-art packs can't be committed to the public repo.
 - [Scaffold the TypeScript + Three.js project and deploy it to GitHub Pages](issues/03-scaffold-and-deploy.md): live at https://daitro123.github.io/descent/, deployed on every push to `main`; the empty scene holds 60 fps at the full 2400×1080 on the Redmi (Brave, rAF at 60 Hz; GPU name hidden by Brave, phone believed to be the 4G / Mali-G57 model).
+- [Pixel art from 2D sprites or from pixelated 3D models?](issues/04-rendering-approach.md): pixelated 3D: live skinned models with smooth, blended animation (won on feel on the Redmi; fps looked steady for all three variants). Assets must be rigged 3D; the camera may rotate or zoom. Folded into `src/render/` and `src/scene/`.
 - [Where can the PoC be hosted from the private repo, for free?](issues/11-hosting.md): GitHub Pages, with the repo made public for now; deploys from `main`. Cloudflare Pages is the fallback if the repo goes private again.
 
 ## Not yet specified

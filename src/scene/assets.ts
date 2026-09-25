@@ -1,8 +1,7 @@
-// PROTOTYPE (throwaway): 2D sprites vs pixelated 3D. See .scratch/isometric-poc/issues/04-rendering-approach.md
 import * as THREE from 'three';
 import { GLTFLoader, type GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-const BASE = `${import.meta.env.BASE_URL}prototype-rendering/kaykit/`;
+const BASE = `${import.meta.env.BASE_URL}models/kaykit/`;
 const loader = new GLTFLoader();
 
 export async function loadModel(name: string): Promise<GLTF> {
@@ -10,7 +9,7 @@ export async function loadModel(name: string): Promise<GLTF> {
   gltf.scene.traverse((object) => {
     if (!(object instanceof THREE.Mesh)) return;
     // Lambert instead of the packs' PBR material: flat, cheaper on the Mali GPU, and no
-    // specular glints to sparkle at low resolution. Same material in both approaches.
+    // specular glints to sparkle at low resolution.
     const source = object.material as THREE.MeshStandardMaterial;
     object.material = new THREE.MeshLambertMaterial({ map: source.map, side: source.side });
     source.dispose();

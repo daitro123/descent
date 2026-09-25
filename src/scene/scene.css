@@ -1,57 +1,26 @@
-/* PROTOTYPE (throwaway): 2D sprites vs pixelated 3D. See .scratch/isometric-poc/issues/04-rendering-approach.md */
+/* Stand-in controls (see input.ts): autopilot toggle, attack button, floating stick. */
 
-.proto-switcher {
+.auto {
   position: fixed;
   left: 50%;
   bottom: max(8px, env(safe-area-inset-bottom));
   transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px;
+  height: 36px;
+  padding: 0 14px;
+  border: 2px solid rgb(255 255 255 / 0.5);
   border-radius: 999px;
-  background: #fff;
-  color: #111;
-  box-shadow: 0 2px 12px rgb(0 0 0 / 0.5);
-  font: 13px/1.2 system-ui, sans-serif;
-  z-index: 10;
-}
-
-.proto-switcher button {
-  min-width: 40px;
-  height: 40px;
-  border: 0;
-  border-radius: 999px;
-  background: #e8e8ee;
-  color: #111;
-  font: 600 20px/1 system-ui, sans-serif;
-}
-
-.proto-switcher .proto-switcher-auto {
-  padding: 0 12px;
-  font-size: 13px;
-}
-
-.proto-switcher .proto-switcher-auto.on {
-  background: #3b6cf6;
+  background: rgb(0 0 0 / 0.35);
   color: #fff;
+  font: 13px/1 system-ui, sans-serif;
+  z-index: 5;
 }
 
-.proto-switcher-label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 170px;
-  padding: 0 6px;
-  text-align: center;
+.auto.on {
+  background: #3b6cf6;
+  border-color: #3b6cf6;
 }
 
-.proto-switcher-label span {
-  font-size: 11px;
-  color: #555;
-}
-
-.proto-attack {
+.attack {
   position: fixed;
   right: max(20px, env(safe-area-inset-right));
   bottom: max(20px, env(safe-area-inset-bottom));
@@ -66,7 +35,7 @@
   z-index: 5;
 }
 
-.proto-stick {
+.stick {
   display: none;
   position: fixed;
   width: 100px;
@@ -77,7 +46,7 @@
   pointer-events: none;
 }
 
-.proto-stick-knob {
+.stick-knob {
   position: absolute;
   left: 28px;
   top: 28px;
@@ -87,7 +56,7 @@
   background: rgb(255 255 255 / 0.4);
 }
 
-.proto-loading {
+.loading {
   position: fixed;
   inset: 0;
   display: flex;

@@ -1,4 +1,4 @@
-// PROTOTYPE (throwaway): 2D sprites vs pixelated 3D. See .scratch/isometric-poc/issues/04-rendering-approach.md
+// Stand-in Area until the Area layout is decided (see the map's "Not yet specified").
 import * as THREE from 'three';
 import { loadModel } from './assets';
 
@@ -17,7 +17,7 @@ export type Area = {
 
 /**
  * A small room from the KayKit Dungeon kit: 5×5 floor tiles, back walls, a low wall to walk
- * behind, a pillar, barrels and crates to brush past. Identical in all variants.
+ * behind, a pillar, barrels and crates to brush past.
  */
 export async function buildArea(): Promise<Area> {
   const [floor, wall, pillar, barrelLarge, barrelSmall, crates] = await Promise.all(
@@ -52,8 +52,7 @@ export async function buildArea(): Promise<Area> {
     place(wall, -HALF, c, Math.PI / 2);
   }
 
-  // A free-standing wall, squashed to half height so the Warrior's head shows above it from
-  // behind: the case where sprite sorting goes wrong first.
+  // A free-standing wall, squashed to half height so the Warrior's head shows above it from behind.
   place(wall, -4, 2, 0, 0.5);
   place(wall, 0, 2, 0, 0.5);
   rects.push({ minX: -6, maxX: 2, minZ: 1.5, maxZ: 2.5 });

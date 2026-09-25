@@ -1,8 +1,7 @@
-// PROTOTYPE (throwaway): 2D sprites vs pixelated 3D. See .scratch/isometric-poc/issues/04-rendering-approach.md
 import * as THREE from 'three';
 import { FAR, NEAR } from './view';
 
-/** Tunable look of the pipeline, shared by both approaches. */
+/** Tunable look of the pipeline. */
 export const pixelLook = {
   /** Device pixels per art pixel (whole number). */
   scale: 4,
@@ -31,12 +30,10 @@ const outlineFragment = /* glsl */ `
   uniform float strength;
   uniform float threshold;
   uniform float depthRange;
-  uniform bool ignoreBackground;
   varying vec2 vUv;
 
   float edgeTo(float d0, vec2 offset) {
     float d = texture2D(tDepth, vUv + offset * texel).r;
-    if (ignoreBackground && d >= 1.0) return 0.0;
     return (d - d0) * depthRange > threshold ? 1.0 : 0.0;
   }
 
@@ -63,7 +60,7 @@ const blitFragment = /* glsl */ `
 `;
 
 /** Low-res colour target (sRGB, nearest), optionally with a depth texture. */
-export function createPixelTarget(width: number, height: number, withDepth: boolean): THREE.WebGLRenderTarget {
+function createPixelTarget(width: number, height: number, withDepth: boolean): THREE.WebGLRenderTarget {
   const target = new THREE.WebGLRenderTarget(width, height, {
     minFilter: THREE.NearestFilter,
     magFilter: THREE.NearestFilter,
@@ -93,7 +90,7 @@ class FullScreenQuad {
   }
 }
 
-export class OutlinePass {
+class OutlinePass {
   private readonly quad = new FullScreenQuad();
   private readonly material = new THREE.ShaderMaterial({
     uniforms: {
@@ -103,7 +100,6 @@ export class OutlinePass {
       strength: { value: 0 },
       threshold: { value: 0 },
       depthRange: { value: FAR - NEAR },
-      ignoreBackground: { value: false },
     },
     vertexShader: fullScreenVertex,
     fragmentShader: outlineFragment,
@@ -112,24 +108,14 @@ export class OutlinePass {
     depthWrite: false,
   });
 
-  /**
-   * Reads `source` (colour + depth) and writes the outlined image to `target` at its current
-   * viewport. `ignoreBackground` skips edges against empty pixels (used when baking sprites,
-   * where the silhouette edge is drawn later, in the game scene).
-   */
-  render(
-    renderer: THREE.WebGLRenderer,
-    source: THREE.WebGLRenderTarget,
-    target: THREE.WebGLRenderTarget,
-    ignoreBackground = false,
-  ): void {
+  /** Reads `source` (colour + depth) and writes the outlined image to `target`. */
+  render(renderer: THREE.WebGLRenderer, source: THREE.WebGLRenderTarget, target: THREE.WebGLRenderTarget): void {
     const u = this.material.uniforms;
     u.tColor.value = source.texture;
     u.tDepth.value = source.depthTexture;
     u.texel.value.set(1 / source.width, 1 / source.height);
     u.strength.value = pixelLook.outline;
     u.threshold.value = pixelLook.outlineDepth;
-    u.ignoreBackground.value = ignoreBackground;
     renderer.setRenderTarget(target);
     this.quad.render(renderer, this.material);
   }

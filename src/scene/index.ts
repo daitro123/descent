@@ -1,37 +1,17 @@
-// PROTOTYPE (throwaway): 2D sprites vs pixelated 3D. See .scratch/isometric-poc/issues/04-rendering-approach.md
-//
-// Three variants of the same scene on the game's one page, switched with `?variant=`:
-//   sprites     A: 8-direction sprite sheet baked from the KayKit Knight, 12 fps, instant turns
-//   3d          B: the live KayKit Knight, smooth animation, blended clips, smooth turns
-//   3d-stepped  C: the live KayKit Knight, animation sampled at 12 fps, cuts, instant turns
-// Everything else is shared: Area, camera, low-res render + outline + whole-number upscale,
-// pixel snapping, controls, Tuning panel.
-import './prototype.css';
+// The PoC scene: the Warrior in the stand-in Area, rendered as pixelated 3D (low-res render,
+// depth-edge outline, whole-number upscale, pixel-snapped camera and objects).
+import './scene.css';
 import * as THREE from 'three';
 import type { createStats } from '../stats';
 import { trackDisplaySize } from '../display';
+import { PixelPipeline, pixelLook } from '../render/pixel-pipeline';
+import { createLights, createViewCamera, placeCamera, setPixelFrustum, snapToPixel } from '../render/view';
 import { isTuningEnabled, openTuningPanel, restoreTuning } from '../tuning';
-import { clipNamed, loadModel } from './assets';
 import { buildArea } from './area';
+import { clipNamed, loadModel } from './assets';
 import { Autopilot, createInput } from './input';
-import { PixelPipeline, pixelLook } from './pixel-pipeline';
-import { createSwitcher, currentVariant } from './switcher';
-import {
-  createLights,
-  createViewCamera,
-  placeCamera,
-  setPixelFrustum,
-  snapToPixel,
-} from './view';
 import { CLIPS, movement, Warrior } from './warrior';
-import { Warrior3DView } from './warrior-3d';
-import { bakeSpriteSheet, SPRITE_FPS, WarriorSpriteView } from './warrior-sprite';
-
-const VARIANTS = [
-  { key: 'sprites', label: 'A · 2D sprites' },
-  { key: '3d', label: 'B · 3D smooth' },
-  { key: '3d-stepped', label: 'C · 3D stepped' },
-] as const;
+import { WarriorView } from './warrior-view';
 
 /** Longest step the simulation takes; a longer stall (tab switch, GC) is cut short. */
 const MAX_STEP_S = 0.1;
@@ -43,46 +23,22 @@ const cameraLook = {
 
 type Stats = ReturnType<typeof createStats>;
 
-export async function startRenderingPrototype(
-  canvas: HTMLCanvasElement,
-  renderer: THREE.WebGLRenderer,
-  stats: Stats,
-): Promise<void> {
-  const variant = currentVariant(VARIANTS);
+export async function startScene(canvas: HTMLCanvasElement, renderer: THREE.WebGLRenderer, stats: Stats): Promise<void> {
   const loading = document.createElement('div');
-  loading.className = 'proto-loading';
+  loading.className = 'loading';
   loading.textContent = 'Loading…';
   document.body.append(loading);
 
   const [area, knight] = await Promise.all([buildArea(), loadModel('knight')]);
-  const attackClip = clipNamed(knight, CLIPS.attack);
-  const warrior = new Warrior(area, attackClip.duration);
-
-  let bakeNote = '';
-  let view: { root: THREE.Object3D; sync(warrior: Warrior, dt: number): void };
-  if (variant.key === 'sprites') {
-    loading.textContent = 'Baking sprites…';
-    await new Promise((resolve) => requestAnimationFrame(resolve));
-    const start = performance.now();
-    const sheet = bakeSpriteSheet(renderer, knight);
-    const frames = [...sheet.strips.values()].reduce((sum, s) => sum + s.count * 8, 0);
-    bakeNote = ` · ${frames} frames baked in ${Math.round(performance.now() - start)} ms`;
-    view = new WarriorSpriteView(sheet);
-  } else {
-    view = new Warrior3DView(
-      knight,
-      variant.key === '3d'
-        ? { stepFps: 0, smoothTurn: true, crossfade: 0.15 }
-        : { stepFps: SPRITE_FPS, smoothTurn: false, crossfade: 0 },
-    );
-  }
+  const warrior = new Warrior(area, clipNamed(knight, CLIPS.attack).duration);
+  const view = new WarriorView(knight);
   loading.remove();
 
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x14121a);
   scene.add(...createLights(), area.root, view.root);
 
-  // Blob shadow: grounds the Warrior the same way in every variant (no real shadows).
+  // Blob shadow: grounds the Warrior without real shadows.
   const shadow = new THREE.Mesh(
     new THREE.CircleGeometry(0.5, 16).rotateX(-Math.PI / 2),
     new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.35, depthWrite: false }),
@@ -97,28 +53,19 @@ export async function startRenderingPrototype(
 
   const autopilot = new Autopilot();
   let auto = true;
-  const switcher = createSwitcher(VARIANTS, variant, () => {
+  const autoButton = button('auto on', 'Auto', 'Toggle autopilot');
+  autoButton.addEventListener('click', () => {
     auto = !auto;
     if (auto) autopilot.restart(warrior);
-    switcher.setAuto(auto);
+    autoButton.classList.toggle('on', auto);
   });
-  switcher.setAuto(auto);
-
-  const attackButton = document.createElement('button');
-  attackButton.type = 'button';
-  attackButton.className = 'proto-attack';
-  attackButton.textContent = '⚔';
-  attackButton.setAttribute('aria-label', 'Attack');
-  document.body.append(attackButton);
+  const attackButton = button('attack', '⚔', 'Attack');
   const input = createInput(canvas, attackButton, () => {
     auto = false;
-    switcher.setAuto(false);
+    autoButton.classList.remove('on');
   });
 
-  const applySize = () => {
-    setPixelFrustum(camera, pipeline.width, pipeline.height);
-    switcher.setDetail(`${pipeline.width}×${pipeline.height} ×${pixelLook.scale}${bakeNote}`);
-  };
+  const applySize = () => setPixelFrustum(camera, pipeline.width, pipeline.height);
   trackDisplaySize(canvas, renderer, (size) => {
     pipeline.resize(size.width, size.height);
     applySize();
@@ -174,4 +121,14 @@ export async function startRenderingPrototype(
     pipeline.render(renderer, scene, camera);
     stats.frame(dt);
   });
+}
+
+function button(className: string, text: string, label: string): HTMLButtonElement {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = className;
+  b.textContent = text;
+  b.setAttribute('aria-label', label);
+  document.body.append(b);
+  return b;
 }
