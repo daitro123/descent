@@ -12,6 +12,8 @@ npm run build      # typecheck + production build into dist/
 
 ### On your phone
 
+Pushes to `main` deploy to https://daitro123.github.io/descent/ (add `?tune` for the Tuning panel). To try a branch before merging it, use the dev server:
+
 1. Put the phone and the computer on the same Wi-Fi.
 2. Run `npm run dev`. Vite prints a `Network:` URL, such as `http://192.168.1.20:5173/`.
 3. Open that URL in the phone's browser and turn the phone sideways. Tap ⛶ for fullscreen.
@@ -20,7 +22,7 @@ If the phone can't reach the URL, the computer's firewall is probably blocking p
 
 ### Tuning panel
 
-Add `?tune` to the URL (`http://192.168.1.20:5173/?tune`) to open the Tuning panel. Tuned values are kept across reloads. **Copy values** puts them on the clipboard as JSON.
+Add `?tune` to the URL (`http://192.168.1.20:5173/?tune`) to open the Tuning panel (or `https://daitro123.github.io/descent/?tune`). Tuned values are kept across reloads. **Copy values** puts them on the clipboard as JSON.
 
 ### On-screen stats
 

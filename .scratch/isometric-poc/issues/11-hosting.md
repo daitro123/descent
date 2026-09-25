@@ -2,7 +2,7 @@
 
 Type: research
 Mode: AFK
-Status: open
+Status: resolved
 
 ## Question
 
@@ -16,3 +16,7 @@ For Cloudflare Pages, and briefly for one or two alternatives (such as Netlify o
 - for comparison, what GitHub Pages from a private repo costs.
 
 The project is a static Vite build (`npm run build` → `dist/`, relative asset paths).
+
+## Answer
+
+Decided by the user rather than researched: **GitHub Pages, with the repo made public for now**, for ease of development. It deploys from `main` through GitHub Actions (details in [Scaffold the TypeScript + Three.js project and deploy it to GitHub Pages](03-scaffold-and-deploy.md)). If the repo goes private again, this question reopens as a fresh ticket, with Cloudflare Pages as the first candidate. The research questions above were not investigated.

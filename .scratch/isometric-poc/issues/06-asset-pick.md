@@ -12,3 +12,5 @@ From the shortlist for the chosen rendering approach, pick the assets for the Wa
 ## Comments
 
 **2026-09-25:** the repo is staying private (see [Scaffold the TypeScript + Three.js project and deploy it to GitHub Pages](03-scaffold-and-deploy.md)). That reopens paid packs that forbid redistribution in a public repo, but the deployed build still serves the files publicly, so check each licence for that case too. [Where can the PoC be hosted from the private repo, for free?](11-hosting.md) looks into it.
+
+**2026-09-25, later:** the repo is going public after all (for now), so the original constraint stands again: paid packs that forbid redistribution can't be committed.

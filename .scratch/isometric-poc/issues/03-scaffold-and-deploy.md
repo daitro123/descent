@@ -24,7 +24,7 @@ Decided with the user:
 - Until there's a host, the phone opens the Vite dev server over Wi-Fi (`npm run dev`, see `README.md`).
 
 **Built (AFK):**
-- Vite 8 + TypeScript 7 + three 0.186.1. `npm run build` typechecks and builds. `.github/workflows/build.yml` runs the same build on every push and PR.
+- Vite 8 + TypeScript 7 + three 0.186.1. `npm run build` typechecks and builds. `.github/workflows/build.yml` runs the same build on every push and PR (replaced by the deploy workflow, next comment).
 - Fullscreen canvas with its drawing buffer sized in exact device pixels (`ResizeObserver` with `device-pixel-content-box`, fallback CSS size × DPR); `setPixelRatio` isn't used.
 - Landscape: a ⛶ button requests fullscreen and locks landscape (Android); a "Turn your phone sideways" overlay covers portrait.
 - Delta-time loop (steps capped at 0.1 s), so a 120 Hz screen doesn't double the speed.
@@ -34,9 +34,23 @@ Decided with the user:
 
 Checked in headless Chromium at 873×393 CSS px: renders, `?tune` opens the panel, the portrait overlay shows, no console errors. At a real 2.75 scale factor the buffer is 2401×1081.
 
-**HITL checklist (open until done):**
+**HITL checklist** (superseded by the next comment):
 1. On a computer on the same Wi-Fi as the Redmi: `git checkout main && npm install && npm run dev`.
 2. Open the printed `Network:` URL on the Redmi in landscape. Tap ⛶.
 3. Report back: the first stats line after ~10 s (fps, ms, worst), the buffer size and dpr on line 2, and the GPU name on line 4 (Mali-G57 = 4G model, Adreno 619 = 5G model).
 4. Open the URL with `?tune` and check the Tuning panel opens and is usable by thumb.
 5. In GitHub, set `main` as the default branch.
+
+**2026-09-25, later: back to GitHub Pages.** For ease of development the user is making the repo public and turning Pages on, so deploying is back in this ticket, and that decision resolves [Where can the PoC be hosted from the private repo, for free?](11-hosting.md).
+
+- `.github/workflows/build-and-deploy.yml` replaces `build.yml`. Every push and PR is typechecked and built. Pushes to `main` (and manual runs on `main`) also deploy `dist/` to GitHub Pages.
+- Expected URL: https://daitro123.github.io/descent/ (the build uses relative asset paths, so the `/descent/` sub-path works).
+- **Deploys are triggered by** pushing to `main`. Work on other branches reaches the phone by merging it into `main`, or over Wi-Fi with `npm run dev`.
+
+**HITL checklist (open until done):**
+1. GitHub → Settings → General: make the repo public, and set `main` as the default branch. The Pages environment only accepts deploys from the default branch, so this comes first.
+2. GitHub → Settings → Pages → Build and deployment → Source: **GitHub Actions**.
+3. GitHub → Actions → "Build and deploy" → Run workflow on `main` (the push that created `main` ran before Pages was on).
+4. Open https://daitro123.github.io/descent/ on the Redmi in landscape and tap ⛶.
+5. Report back: the first stats line after ~10 s (fps, ms, worst), the buffer size and dpr on line 2, and the GPU name on line 4 (Mali-G57 = 4G model, Adreno 619 = 5G model).
+6. Open https://daitro123.github.io/descent/?tune and check the Tuning panel opens and is usable by thumb.

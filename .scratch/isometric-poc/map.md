@@ -4,13 +4,13 @@ Label: wayfinder:map
 
 ## Destination
 
-A proof of concept you can play in a mobile browser at a hosted URL: the **Warrior**, 3 **enemy types**, and one small hand-built **Area**, rendered as isometric pixel art in TypeScript + Three.js, with the Warrior's movement and combat **feel** signed off by the user after playing it on their phone.
+A proof of concept you can play in a mobile browser at a public URL (GitHub Pages): the **Warrior**, 3 **enemy types**, and one small hand-built **Area**, rendered as isometric pixel art in TypeScript + Three.js, with the Warrior's movement and combat **feel** signed off by the user after playing it on their phone.
 
 ## Notes
 
 - **Execution is in scope for this map.** Feel can only be judged by playing, so prototype and task tickets may produce real, kept code. The map closes when the user signs off the feel on-device, not when a spec exists. Throwaway prototypes are still captured per the `prototype` skill.
 - **Stack:** TypeScript + Three.js (user's choice), built with Vite. Run and phone-access notes are in `README.md`.
-- **Repo and hosting:** the repo stays private, so GitHub Pages is out. The host is still open: [Where can the PoC be hosted from the private repo, for free?](issues/11-hosting.md); it deploys from `main`, the default branch. Until then the phone opens the Vite dev server over Wi-Fi.
+- **Repo and hosting:** the repo is public (for now) and deploys to GitHub Pages through GitHub Actions on every push to `main`, the default branch. Branch work reaches the phone by merging into `main`, or over Wi-Fi with `npm run dev`.
 - **Target:** a mobile browser in landscape, not tied to any one browser. Test device: Xiaomi Redmi Note 11 Pro (Android); target a steady 60 fps on it. Desktop mouse/keyboard should work, but only as a dev convenience.
 - **Tempo:** slower and more deliberate than Diablo: few enemies at a time, telegraphed attacks, every swing matters. Story and pacing design belong to a separate, later wayfinder run.
 - **Tuning:** feel values are tuned live on the phone through an in-game **Tuning panel** behind `?tune`.
@@ -24,6 +24,7 @@ A proof of concept you can play in a mobile browser at a hosted URL: the **Warri
 <!-- one line per resolved ticket: [title](issues/NN-slug.md): gist -->
 - [How do you render isometric pixel art with Three.js on a mid-range Android phone?](issues/01-threejs-pixel-rendering.md): both approaches = low-res render, whole-number nearest-neighbour upscale, pixel-snapped camera; 2D is hard on depth ordering, 3D costs a second render and float targets; 120 Hz screen means delta-time updates.
 - [Which CC0 or licensed asset packs could the PoC use?](issues/02-asset-candidates.md): KayKit (CC0, 3D) leads both approaches (as models, or rendered by us into 8-direction sprites); paid pixel-art packs can't be committed to the public repo.
+- [Where can the PoC be hosted from the private repo, for free?](issues/11-hosting.md): GitHub Pages, with the repo made public for now; deploys from `main`. Cloudflare Pages is the fallback if the repo goes private again.
 
 ## Not yet specified
 
@@ -35,7 +36,6 @@ A proof of concept you can play in a mobile browser at a hosted URL: the **Warri
 - **Building the PoC:** splitting the real implementation into build tickets once rendering, controls, combat and enemies are decided.
 - **Feel sign-off:** what "feel approved" concretely means (a checklist? a play session with notes?).
 - **Performance check** on the Redmi once the full scene exists.
-- **Setting up the host** once [Where can the PoC be hosted from the private repo, for free?](issues/11-hosting.md) picks one: connect the repo, production from `main`, and possibly previews and access control.
 
 ## Out of scope
 
