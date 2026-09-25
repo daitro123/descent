@@ -24,6 +24,7 @@ A proof of concept you can play in a mobile browser at a public URL (GitHub Page
 <!-- one line per resolved ticket: [title](issues/NN-slug.md): gist -->
 - [How do you render isometric pixel art with Three.js on a mid-range Android phone?](issues/01-threejs-pixel-rendering.md): both approaches = low-res render, whole-number nearest-neighbour upscale, pixel-snapped camera; 2D is hard on depth ordering, 3D costs a second render and float targets; 120 Hz screen means delta-time updates.
 - [Which CC0 or licensed asset packs could the PoC use?](issues/02-asset-candidates.md): KayKit (CC0, 3D) leads both approaches (as models, or rendered by us into 8-direction sprites); paid pixel-art packs can't be committed to the public repo.
+- [Scaffold the TypeScript + Three.js project and deploy it to GitHub Pages](issues/03-scaffold-and-deploy.md): live at https://daitro123.github.io/descent/, deployed on every push to `main`; the empty scene holds 60 fps at the full 2400×1080 on the Redmi (Brave, rAF at 60 Hz; GPU name hidden by Brave).
 - [Where can the PoC be hosted from the private repo, for free?](issues/11-hosting.md): GitHub Pages, with the repo made public for now; deploys from `main`. Cloudflare Pages is the fallback if the repo goes private again.
 
 ## Not yet specified

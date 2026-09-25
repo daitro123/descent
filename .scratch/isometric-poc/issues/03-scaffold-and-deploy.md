@@ -2,7 +2,7 @@
 
 Type: task
 Mode: AFK + HITL checklist
-Status: claimed
+Status: resolved
 
 ## Question
 
@@ -54,3 +54,14 @@ Checked in headless Chromium at 873×393 CSS px: renders, `?tune` opens the pane
 4. Open https://daitro123.github.io/descent/ on the Redmi in landscape and tap ⛶.
 5. Report back: the first stats line after ~10 s (fps, ms, worst), the buffer size and dpr on line 2, and the GPU name on line 4 (Mali-G57 = 4G model, Adreno 619 = 5G model).
 6. Open https://daitro123.github.io/descent/?tune and check the Tuning panel opens and is usable by thumb.
+
+## Answer
+
+The scaffold is live and confirmed on the Redmi.
+
+- **URL:** https://daitro123.github.io/descent/ (Tuning panel: https://daitro123.github.io/descent/?tune).
+- **Deploys:** the "Build and deploy" workflow (`.github/workflows/build-and-deploy.yml`). Every push to `main` builds and deploys, and it can be run by hand on `main` from the Actions tab. Every other push and PR only builds. The Pages source must be **GitHub Actions**. Under "Deploy from a branch", GitHub publishes the unbuilt source and the page comes up blank.
+- **Baseline on the Redmi** (Brave, landscape, fullscreen, placeholder scene with 2 draw calls and 12 triangles): **60 fps, 16.7 ms average, 16.8 ms worst**. Drawing buffer 2400×1080 device pixels at dpr 2.75, so the canvas fills the whole native screen.
+- **rAF runs at 60 Hz, not 120,** in Brave on this phone. The delta-time loop handles either.
+- **GPU unknown:** Brave hides the WebGL renderer name (it reports "Brave"), so the 4G (Mali-G57) vs 5G (Adreno 619) question is still open. Settings → About phone answers it.
+- **Tuning panel:** opens with `?tune` and is easy to use by thumb. It's empty until prototypes add Feel values.
