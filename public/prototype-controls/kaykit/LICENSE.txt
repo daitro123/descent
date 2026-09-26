@@ -1,0 +1,8 @@
+KayKit Adventurers Character Pack 1.0 and KayKit Skeletons Character Pack 1.0
+Created by Kay Lousberg (www.kaylousberg.com). License: CC0 1.0
+http://creativecommons.org/publicdomain/zero/1.0/
+
+knight.glb is Knight.glb keeping only Idle, Walking_A, Running_A, 1H_Melee_Attack_Chop, Blocking,
+Block_Hit, Dodge_Forward/Backward/Left/Right and Hit_A. skeleton-minion.glb is Skeleton_Minion.glb
+keeping only Idle_Combat, Walking_D_Skeletons, 1H_Melee_Attack_Chop, Hit_A, Death_C_Skeletons and
+Spawn_Ground_Skeletons. Unused data pruned with glTF-Transform.

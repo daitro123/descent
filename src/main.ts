@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import { setUpFullscreenButton } from './fullscreen';
-import { startScene } from './scene';
+// PROTOTYPE (throwaway): the touch-controls prototype stands in for the PoC scene (`./scene`)
+// until "Which touch control scheme fits deliberate isometric combat?" is decided.
+import { startControlsPrototype } from './prototype-controls';
 import { createStats } from './stats';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game')!;
@@ -10,4 +12,4 @@ const stats = createStats(document.querySelector<HTMLElement>('#stats')!, render
 
 setUpFullscreenButton(document.querySelector<HTMLElement>('#fullscreen')!);
 
-void startScene(canvas, renderer, stats);
+void startControlsPrototype(canvas, renderer, stats);
