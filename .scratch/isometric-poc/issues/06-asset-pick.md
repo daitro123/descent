@@ -3,7 +3,7 @@
 Type: grilling
 Mode: HITL
 Status: open
-Blocked by: 02, 04, 12
+Blocked by: 02, 04, 12, 13
 
 ## Question
 
@@ -16,3 +16,5 @@ From the shortlist for the chosen rendering approach, pick the assets for the Wa
 **2026-09-25, later:** the repo is going public after all (for now), so the original constraint stands again: paid packs that forbid redistribution can't be committed.
 
 **2026-09-25, after the rendering prototype:** pixelated 3D won ([Pixel art from 2D sprites or from pixelated 3D models?](04-rendering-approach.md)), so only 3D assets are in play. The user wants a gritty tone, not KayKit's cute style, so the pick now waits on [Which gritty, rigged 3D characters and dungeon kit could replace KayKit?](12-gritty-3d-assets.md). KayKit is the fallback and the current stand-in.
+
+**2026-09-26:** the gritty-assets research is in ([Which gritty, rigged 3D characters and dungeon kit could replace KayKit?](12-gritty-3d-assets.md)). Its open questions belong here: is a build-time fetch from private storage acceptable (Mixamo, Synty, PSX packs)? How dark is "gritty"? Undead and monsters, or humans and beasts? Budget for paid packs? The look is judged first in [Which gritty candidates read best through the pixel pipeline on the Redmi?](13-asset-bake-off.md).

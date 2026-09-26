@@ -28,6 +28,7 @@ A proof of concept you can play in a mobile browser at a public URL (GitHub Page
 - [Scaffold the TypeScript + Three.js project and deploy it to GitHub Pages](issues/03-scaffold-and-deploy.md): live at https://daitro123.github.io/descent/, deployed on every push to `main`; the empty scene holds 60 fps at the full 2400×1080 on the Redmi (Brave, rAF at 60 Hz; GPU name hidden by Brave, phone believed to be the 4G / Mali-G57 model).
 - [Pixel art from 2D sprites or from pixelated 3D models?](issues/04-rendering-approach.md): pixelated 3D: live skinned models with smooth, blended animation (won on feel on the Redmi; fps looked steady for all three variants). Assets must be rigged 3D; the camera may rotate or zoom. Folded into `src/render/` and `src/scene/`.
 - [Where can the PoC be hosted from the private repo, for free?](issues/11-hosting.md): GitHub Pages, with the repo made public for now; deploys from `main`. Cloudflare Pages is the fallback if the repo goes private again.
+- [Which gritty, rigged 3D characters and dungeon kit could replace KayKit?](issues/12-gritty-3d-assets.md): no free set is gritty, animated and from one artist. Animations are solved with CC0 Quaternius UAL1+2 on one rig. Characters: Mixamo or Synty (build-time fetch), 0 A.D. (CC-BY-SA, committable), or PSX packs. Area: retexture KayKit Dungeon dark, or Synty. Judge by eye on the Redmi.
 
 ## Not yet specified
 
