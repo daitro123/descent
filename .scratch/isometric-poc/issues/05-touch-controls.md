@@ -2,7 +2,7 @@
 
 Type: prototype
 Mode: HITL
-Status: open
+Status: claimed
 Blocked by: 03
 
 ## Question
